@@ -26,5 +26,6 @@ module.exports = webpackMerge(baseWebpackConfig, {
       // 接口请求代理
     },
     stats: "errors-only"
-  }
+  },
+  devtool: 'source-map'
 });

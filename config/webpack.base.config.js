@@ -1,6 +1,7 @@
 const path = require("path");
 const utils = require("./utils")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   // 入口
   entry: {
@@ -21,11 +22,19 @@ module.exports = {
         loader: 'babel-loader',//loader的名称（必须）
       },
       {
+
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader', // 创建 <style></style>
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+              reloadAll: true,
+            }
           },
+          // {
+          //   loader: 'style-loader', // 创建 <style></style>
+          // },
           {
             loader: 'css-loader',  // 转换css
           }
@@ -71,12 +80,20 @@ module.exports = {
           to: "static"
         }
       ],
-    })
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
   ],
   resolve: {
     extensions: ['.js', '.json'], // 解析扩展。（当我们通过路导入文件，找不到改文件时，会尝试加入这些后缀继续寻找文件）
     alias: {
-      '@': path.join(__dirname, '..', "src") // 在项目中使用@符号代替src路径，导入文件路径更方便
+      '@': path.join(__dirname, '..', "src"), // 在项目中使用@符号代替src路径，导入文件路径更方便
+      '@actions': path.join(__dirname, '../src/redux/actions'),
+      '@reducers': path.join(__dirname, '../src/redux/reducers'),
+      '@components': path.join(__dirname, '../src/components'),
+      '@middleware': path.join(__dirname, '../src/middleware'),
     }
   }
 }

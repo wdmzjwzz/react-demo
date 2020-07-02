@@ -1,13 +1,15 @@
 const webpackMerge = require("webpack-merge");
 const baseWebpackConfig = require("./webpack.base.config")
 const utils = require("./utils")
+const path = require('path')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-
-module.exports = webpackMerge(baseWebpackConfig,{
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+// const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
+module.exports = webpackMerge(baseWebpackConfig, {
     // 指定构建环境  
-    mode:"production",
+    mode: "production",
     // 插件
-    plugins:[
+    plugins: [
         new HtmlWebpackPlugin({
             filename: utils.resolve('./../dist/index.html'), // html模板的生成路径
             template: 'index.html',//html模板
@@ -19,6 +21,7 @@ module.exports = webpackMerge(baseWebpackConfig,{
                 collapseWhitespace: true,           //压缩空格
                 removeAttributeQuotes: true         //去除属性引用
             }
-        })
+        }),
+        new CleanWebpackPlugin()
     ],
 })

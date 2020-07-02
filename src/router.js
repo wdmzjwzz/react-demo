@@ -6,10 +6,10 @@ const About = lazy(() => import('./pages/About'));
 const Connect = lazy(() => import('./pages/Connect'));
 const SubCom = lazy(() => import('./components/subHome'));
 const login = lazy(() => import('./pages/login'));
-
+import './styles/common.less'
 export default (props) => (
   <Router>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="loading">Loading...</div>}>
       <Switch>
         <Route path="/login" exact component={login} />
         <Route path="/" render={() =>
