@@ -9,7 +9,7 @@ const login = lazy(() => import('./pages/login'));
 
 export default (props) => (
   <Router>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="loading">Loading...</div>}>
       <Switch>
         <Route path="/login" exact component={login} />
         <Route path="/" render={() =>
